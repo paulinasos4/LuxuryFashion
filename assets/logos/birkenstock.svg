@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="120" viewBox="0 0 440 120" role="img" aria-labelledby="title desc">
+  <title id="title">Birkenstock</title>
+  <desc id="desc">Wordmark de Birkenstock para tarjeta de marca</desc>
+  <rect x="2" y="2" width="436" height="116" rx="16" fill="#173d7a" stroke="#133261" stroke-width="4" />
+  <text x="220" y="74" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700" letter-spacing="1.8">
+    BIRKENSTOCK
+  </text>
+</svg>
