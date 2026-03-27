@@ -19,6 +19,15 @@ const brands = [
     name: "Nike",
     categories: ["Zapatillas", "Indumentaria"],
     logo: "./assets/logos/nike.png"
+  },
+  {
+    name: "Golden Goose",
+    categories: ["Zapatillas", "Indumentaria"]
+  },
+  {
+    name: "Miu Miu",
+    categories: ["Calzado", "Accesorios"],
+    logo: "./assets/logos/miu-miu.png"
   }
 ];
 
@@ -64,7 +73,9 @@ const products = [
   { brand: "New Balance", title: "9060", category: "Zapatillas", status: "encargue" },
   { brand: "Alo", title: "Airlift Legging", category: "Indumentaria", status: "encargue" },
   { brand: "Alo", title: "Cropped Hoodie", category: "Indumentaria", status: "stock" },
-  { brand: "Nike", title: "Air Force 1", category: "Zapatillas", status: "stock" }
+  { brand: "Nike", title: "Air Force 1", category: "Zapatillas", status: "stock" },
+  { brand: "Golden Goose", title: "Super-Star", category: "Zapatillas", status: "encargue" },
+  { brand: "Miu Miu", title: "Logo Knit Sneakers", category: "Calzado", status: "encargue" }
 ];
 
 const brandGrid = document.getElementById("brandGrid");

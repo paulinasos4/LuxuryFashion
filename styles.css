@@ -181,9 +181,13 @@ a {
 
 .brand-grid {
   margin-top: 1.4rem;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(120px, 1fr));
+  display: flex;
   gap: 0.9rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.4rem;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
 }
 
 .brand-card {
@@ -196,6 +200,8 @@ a {
   transition: transform 160ms ease, box-shadow 160ms ease;
   cursor: pointer;
   user-select: none;
+  flex: 0 0 240px;
+  scroll-snap-align: start;
 }
 
 .brand-card:focus-visible {
@@ -376,10 +382,6 @@ select {
     grid-template-columns: 1fr;
   }
 
-  .brand-grid {
-    grid-template-columns: repeat(3, minmax(120px, 1fr));
-  }
-
   .product-grid,
   .steps {
     grid-template-columns: repeat(2, minmax(220px, 1fr));
@@ -404,7 +406,6 @@ select {
     grid-template-columns: 1fr;
   }
 
-  .brand-grid,
   .product-grid,
   .steps {
     grid-template-columns: 1fr;
