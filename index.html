@@ -18,83 +18,50 @@
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="#inicio" aria-label="Ir al inicio">
-        <span class="brand-mark">Luxury Fashion</span>
-        <span class="brand-sub">Moda de diseñador</span>
-      </a>
-      <nav class="menu">
-        <a href="#marcas">Marcas</a>
-        <a href="#catalogo">Catálogo</a>
-        <a href="#como-comprar">Cómo comprar</a>
-        <a href="#contacto">Contacto</a>
+      <a class="brand" href="#inicio" aria-label="Ir al inicio">LUXURYFASHION</a>
+
+      <nav class="menu" aria-label="Navegacion principal">
+        <div class="menu-item with-dropdown" id="brandsDropdown">
+          <button class="menu-link" id="brandsToggle" aria-expanded="false" aria-controls="brandsPanel">
+            MARCAS
+          </button>
+          <div class="brands-panel" id="brandsPanel" role="menu" aria-label="Listado de marcas"></div>
+        </div>
+        <a class="menu-link" href="#mujer">MUJER</a>
+        <a class="menu-link" href="#hombre">HOMBRE</a>
+        <a class="menu-link" href="#ninos">NIÑOS</a>
+        <a class="menu-link" href="#accesorios">ACCESORIOS</a>
+        <a class="menu-link" href="#sale">SALE</a>
+        <a class="menu-link" href="#verano">VERANO 🌞</a>
       </nav>
-      <a class="btn btn-dark" href="https://wa.me/5490000000000" target="_blank" rel="noreferrer">
-        Consultar
-      </a>
+
+      <div class="actions">
+        <label class="search" for="searchInput">
+          <input id="searchInput" type="search" placeholder="Buscar productos..." />
+          <span aria-hidden="true">⌕</span>
+        </label>
+        <a href="#perfil" class="icon-btn" aria-label="Perfil">◌</a>
+        <a href="#carrito" class="icon-btn" aria-label="Carrito">👜</a>
+      </div>
     </header>
 
     <main id="inicio">
-      <section class="hero section">
-        <div class="hero-copy">
-          <p class="eyebrow">Importados originales</p>
-          <h1>Zapatillas e indumentaria por marca</h1>
-          <p>
-            Trabajamos con productos en <strong>stock inmediato</strong> y también por
-            <strong>encargue</strong>. Te ayudamos a conseguir ese modelo que buscás.
-          </p>
-          <div class="hero-cta">
-            <a class="btn btn-dark" href="#catalogo">Ver catálogo</a>
-            <a class="btn btn-light" href="#como-comprar">Cómo comprar</a>
-          </div>
-        </div>
-        <div class="hero-card">
-          <h2>Disponibilidad</h2>
-          <ul>
-            <li><span class="dot stock"></span> En stock - entrega rápida</li>
-            <li><span class="dot order"></span> Por encargue - importación</li>
-          </ul>
-          <p>Respondemos consultas por WhatsApp con asesoramiento de talles y modelos.</p>
-        </div>
+      <section class="hero-gallery section">
+        <article class="hero-tile large" id="heroTile1">
+        </article>
+        <article class="hero-tile middle" id="heroTile2">
+          <a href="#marcas" class="tile-cta">DESCUBRIR</a>
+        </article>
+        <article class="hero-tile large" id="heroTile3">
+        </article>
       </section>
 
-      <section id="marcas" class="section">
+      <section id="marcas" class="section brands-section is-hidden">
         <div class="section-head">
-          <p class="eyebrow">Marcas</p>
-          <h2>Seleccioná tu marca favorita</h2>
+          <p class="eyebrow">Marca seleccionada</p>
+          <h2 id="activeBrandTitle">MARCAS</h2>
         </div>
-        <div class="brand-grid" id="brandGrid"></div>
-      </section>
-
-      <section id="catalogo" class="section section-alt">
-        <div class="section-head">
-          <p class="eyebrow">Catálogo</p>
-          <h2>Productos destacados</h2>
-        </div>
-
-        <div class="filters">
-          <label>
-            Marca
-            <select id="brandFilter">
-              <option value="all">Todas</option>
-            </select>
-          </label>
-          <label>
-            Categoría
-            <select id="categoryFilter">
-              <option value="all">Todas</option>
-            </select>
-          </label>
-          <label>
-            Disponibilidad
-            <select id="statusFilter">
-              <option value="all">Todas</option>
-              <option value="stock">En stock</option>
-              <option value="encargue">Por encargue</option>
-            </select>
-          </label>
-        </div>
-
-        <div class="product-grid" id="productGrid"></div>
+        <div id="brandProducts" class="brand-products-view"></div>
       </section>
 
       <section id="como-comprar" class="section">
@@ -118,27 +85,56 @@
         </div>
       </section>
 
-      <section id="contacto" class="section section-alt">
-        <div class="section-head">
-          <p class="eyebrow">Contacto</p>
-          <h2>¿Querés asesoramiento personalizado?</h2>
-        </div>
-        <p class="contact-copy">
-          Escribinos y te ayudamos con talles, colores, disponibilidad y tiempos de entrega.
-        </p>
-        <div class="hero-cta">
-          <a class="btn btn-dark" href="https://wa.me/5490000000000" target="_blank" rel="noreferrer">
-            Hablar por WhatsApp
-          </a>
-          <a class="btn btn-light" href="https://instagram.com/" target="_blank" rel="noreferrer">
-            Ver Instagram
-          </a>
+      <section class="dark-info">
+        <div class="dark-wrap">
+          <div class="newsletter">
+            <input type="email" placeholder="Ingresa tu e-mail" />
+            <button type="button">SUSCRIBIRME</button>
+          </div>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">◎</a>
+            <a href="#" aria-label="WhatsApp">◍</a>
+          </div>
+          <div class="info-columns">
+            <article>
+              <h3>LUXURYFASHION</h3>
+              <p>Whatsapp: 099973147</p>
+              <p>Telefono: 27169991</p>
+              <p>Lunes a viernes de 9:00 a 13:00 y de 14:00 a 17:45.</p>
+            </article>
+            <article>
+              <h4>Contacto</h4>
+              <a href="#">Preguntas frecuentes</a>
+              <a href="#">Contacto</a>
+            </article>
+            <article>
+              <h4>Empresa</h4>
+              <a href="#">¿Quienes somos?</a>
+              <a href="#">Trabaja con nosotros</a>
+              <a href="#">Nuestras tiendas</a>
+            </article>
+            <article>
+              <h4>Compra</h4>
+              <a href="#">Como comprar</a>
+              <a href="#">Cambios y devoluciones</a>
+              <a href="#">Terminos y condiciones</a>
+              <a href="#">Envios</a>
+            </article>
+            <article>
+              <h4>Mi cuenta</h4>
+              <a href="#">Mi cuenta</a>
+              <a href="#">Mis compras</a>
+              <a href="#">Mis direcciones</a>
+              <a href="#">Wish List</a>
+            </article>
+          </div>
         </div>
       </section>
     </main>
 
     <footer class="footer">
-      <p>Luxury Fashion · Importadora de indumentaria y zapatillas premium</p>
+      <p>© COPYRIGHT 2026 / LUXURYFASHION</p>
     </footer>
 
     <script src="./script.js"></script>

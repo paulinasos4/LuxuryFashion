@@ -1,24 +1,20 @@
 const brands = [
   {
     name: "Adidas",
-    categories: ["Zapatillas", "Indumentaria"],
-    logo: "./assets/logos/adidas.png"
+    categories: ["Zapatillas", "Indumentaria"]
   },
   {
     name: "Birkenstock",
-    categories: ["Sandalias", "Accesorios"],
-    logo: "./assets/logos/birkenstock.png"
+    categories: ["Sandalias", "Accesorios"]
   },
   {
     name: "New Balance",
-    categories: ["Zapatillas", "Indumentaria"],
-    logo: "./assets/logos/new-balance.png"
+    categories: ["Zapatillas", "Indumentaria"]
   },
   { name: "Alo", categories: ["Indumentaria", "Accesorios"] },
   {
     name: "Nike",
-    categories: ["Zapatillas", "Indumentaria"],
-    logo: "./assets/logos/nike.png"
+    categories: ["Zapatillas", "Indumentaria"]
   },
   {
     name: "Golden Goose",
@@ -26,8 +22,7 @@ const brands = [
   },
   {
     name: "Miu Miu",
-    categories: ["Calzado", "Accesorios"],
-    logo: "./assets/logos/miu-miu.png"
+    categories: ["Calzado", "Accesorios"]
   }
 ];
 
@@ -78,102 +73,55 @@ const products = [
   { brand: "Miu Miu", title: "Logo Knit Sneakers", category: "Calzado", status: "encargue" }
 ];
 
-const brandGrid = document.getElementById("brandGrid");
-const productGrid = document.getElementById("productGrid");
-const brandFilter = document.getElementById("brandFilter");
-const categoryFilter = document.getElementById("categoryFilter");
-const statusFilter = document.getElementById("statusFilter");
+const brandsSection = document.getElementById("marcas");
+const activeBrandTitle = document.getElementById("activeBrandTitle");
+const brandProducts = document.getElementById("brandProducts");
+const brandsDropdown = document.getElementById("brandsDropdown");
+const brandsToggle = document.getElementById("brandsToggle");
+const brandsPanel = document.getElementById("brandsPanel");
+const heroTiles = [
+  document.getElementById("heroTile1"),
+  document.getElementById("heroTile2"),
+  document.getElementById("heroTile3")
+];
 
-function fillFilterOptions() {
-  const allBrands = [...new Set(products.map((p) => p.brand))];
-  const allCategories = [...new Set(products.map((p) => p.category))];
+const heroImages = [
+  "./assets/hero/hero-1.png",
+  "./assets/hero/hero-2.png",
+  "./assets/hero/hero-3.png"
+];
 
-  allBrands.forEach((brand) => {
-    const opt = document.createElement("option");
-    opt.value = brand;
-    opt.textContent = brand;
-    brandFilter.appendChild(opt);
-  });
-
-  allCategories.forEach((category) => {
-    const opt = document.createElement("option");
-    opt.value = category;
-    opt.textContent = category;
-    categoryFilter.appendChild(opt);
+function setHeroImages() {
+  heroTiles.forEach((tile, index) => {
+    if (!tile) return;
+    const imageUrl = heroImages[index];
+    if (!imageUrl) return;
+    tile.style.backgroundImage = `url("${imageUrl}")`;
   });
 }
 
-function renderBrands() {
-  brandGrid.innerHTML = brands
+function renderBrandsDropdown() {
+  if (!brandsPanel) return;
+  const sorted = [...new Set(brands.map((brand) => brand.name))].sort((a, b) =>
+    a.localeCompare(b, "es")
+  );
+  brandsPanel.innerHTML = sorted
     .map(
-      (brand) => `
-      <article class="brand-card" data-brand="${brand.name}" role="button" tabindex="0" aria-label="Ver productos ${brand.name}">
-        ${
-          brand.logo
-            ? `<img class="brand-logo" src="${brand.logo}" alt="" loading="lazy" aria-hidden="true" />`
-            : `<h3>${brand.name}</h3>`
-        }
-      </article>
-    `
+      (name) =>
+        `<a href="#marcas" class="brand-option" data-brand-option="${name}" role="menuitem">${name}</a>`
     )
     .join("");
 }
 
-/** Al elegir una marca: catálogo filtrado por esa marca y scroll al bloque. */
-function showBrandInCatalog(brandName) {
-  brandFilter.value = brandName;
-  categoryFilter.value = "all";
-  statusFilter.value = "all";
-  renderProducts();
-
-  const catalogSection = document.getElementById("catalogo");
-  if (catalogSection) {
-    catalogSection.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+function toggleBrandsDropdown(isOpen) {
+  if (!brandsDropdown || !brandsToggle) return;
+  const open = typeof isOpen === "boolean" ? isOpen : !brandsDropdown.classList.contains("open");
+  brandsDropdown.classList.toggle("open", open);
+  brandsToggle.setAttribute("aria-expanded", String(open));
 }
 
-brandGrid.addEventListener("click", (e) => {
-  const card = e.target.closest(".brand-card");
-  if (!card || !brandGrid.contains(card)) return;
-  const name = card.dataset.brand;
-  if (name) showBrandInCatalog(name);
-});
-
-brandGrid.addEventListener("keydown", (e) => {
-  if (e.key !== "Enter" && e.key !== " ") return;
-  const card = e.target.closest(".brand-card");
-  if (!card || !brandGrid.contains(card)) return;
-  e.preventDefault();
-  const name = card.dataset.brand;
-  if (name) showBrandInCatalog(name);
-});
-
-function statusBadge(status) {
-  if (status === "stock") {
-    return '<span class="badge badge-stock">En stock</span>';
-  }
-  return '<span class="badge badge-order">Por encargue</span>';
-}
-
-function renderProducts() {
-  const selectedBrand = brandFilter.value;
-  const selectedCategory = categoryFilter.value;
-  const selectedStatus = statusFilter.value;
-
-  const filtered = products.filter((item) => {
-    const matchBrand = selectedBrand === "all" || item.brand === selectedBrand;
-    const matchCategory = selectedCategory === "all" || item.category === selectedCategory;
-    const matchStatus = selectedStatus === "all" || item.status === selectedStatus;
-    return matchBrand && matchCategory && matchStatus;
-  });
-
-  if (filtered.length === 0) {
-    productGrid.innerHTML =
-      '<p>No hay resultados con esos filtros. Probá cambiando marca o categoría.</p>';
-    return;
-  }
-
-  productGrid.innerHTML = filtered
+function renderProductCards(list) {
+  return list
     .map(
       (item) => `
       <article class="product-card">
@@ -193,8 +141,56 @@ function renderProducts() {
     `
     )
     .join("");
+}
 
+function showBrandInSection(brandName) {
+  if (!brandsSection || !brandProducts || !activeBrandTitle) return;
+  const items = products.filter((product) => product.brand === brandName);
+  activeBrandTitle.textContent = brandName.toUpperCase();
+  brandProducts.innerHTML =
+    items.length > 0
+      ? `<div class="product-grid">${renderProductCards(items)}</div>`
+      : '<p class="empty-brand">No hay productos cargados para esta marca.</p>';
+  brandsSection.classList.remove("is-hidden");
   document.querySelectorAll(".product-image").forEach(setImageFallback);
+
+  if (brandsSection) {
+    brandsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+if (brandsToggle) {
+  brandsToggle.addEventListener("click", () => toggleBrandsDropdown());
+}
+
+if (brandsDropdown) {
+  brandsDropdown.addEventListener("mouseenter", () => toggleBrandsDropdown(true));
+  brandsDropdown.addEventListener("mouseleave", () => toggleBrandsDropdown(false));
+}
+
+if (brandsPanel) {
+  brandsPanel.addEventListener("click", (e) => {
+    const option = e.target.closest("[data-brand-option]");
+    if (!option) return;
+    const selectedBrand = option.dataset.brandOption;
+    if (!selectedBrand) return;
+    e.preventDefault();
+    toggleBrandsDropdown(false);
+    showBrandInSection(selectedBrand);
+  });
+}
+
+document.addEventListener("click", (e) => {
+  if (!brandsDropdown) return;
+  if (brandsDropdown.contains(e.target)) return;
+  toggleBrandsDropdown(false);
+});
+
+function statusBadge(status) {
+  if (status === "stock") {
+    return '<span class="badge badge-stock">En stock</span>';
+  }
+  return '<span class="badge badge-order">Por encargue</span>';
 }
 
 // Si una imagen externa falla, mantenemos una vista prolija con placeholder local.
@@ -219,10 +215,5 @@ function setImageFallback(img) {
   };
 }
 
-[brandFilter, categoryFilter, statusFilter].forEach((el) =>
-  el.addEventListener("change", renderProducts)
-);
-
-fillFilterOptions();
-renderBrands();
-renderProducts();
+setHeroImages();
+renderBrandsDropdown();
